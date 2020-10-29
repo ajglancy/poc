@@ -1,0 +1,24 @@
+---
+driver:
+  name: "terraform"
+  root_module_directory: "."
+
+provisioner:
+  name: "terraform"
+
+platforms:
+  - name: "aws"
+
+verifier:
+  name: "awspec"
+  hosts_output: "vpc_id"
+
+suites:
+  - name: "default"
+    verifier:
+      name: "awspec"
+      patterns:
+      - "test/unit/vpc/vpc_test.rb"
+      - "test/unit/ec2/ec2_test.rb"
+      - "test/unit/s3/s3_test.rb"
+      - "test/unit/security_groups/sg_test.rb"

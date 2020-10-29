@@ -1,0 +1,19 @@
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/ffi-yajl-2.3.4/ext/ffi_yajl/ext/dlopen
+/usr/local/opt/ruby/bin/ruby -I /usr/local/Cellar/ruby/2.7.2/lib/ruby/2.7.0 -r ./siteconf20201024-6772-abuwy2.rb extconf.rb
+$(cflags)  -fno-common -pipe
+-L. -fstack-protector-strong -L/usr/local/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib
+checking for dlfcn.h... yes
+checking for dlopen() in -ldl... yes
+creating Makefile
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/ffi-yajl-2.3.4/ext/ffi_yajl/ext/dlopen
+make "DESTDIR=" clean
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/ffi-yajl-2.3.4/ext/ffi_yajl/ext/dlopen
+make "DESTDIR="
+compiling dlopen.c
+linking shared-object ffi_yajl/ext/dlopen.bundle
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/ffi-yajl-2.3.4/ext/ffi_yajl/ext/dlopen
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 dlopen.bundle ./.gem.20201024-6772-tjmb4r/ffi_yajl/ext

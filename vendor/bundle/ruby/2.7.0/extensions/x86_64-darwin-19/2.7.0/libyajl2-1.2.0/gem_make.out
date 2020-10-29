@@ -1,0 +1,19 @@
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/ext/libyajl2
+/usr/local/opt/ruby/bin/ruby -I /usr/local/Cellar/ruby/2.7.2/lib/ruby/2.7.0 -r ./siteconf20201024-6772-1t9eil0.rb extconf.rb
+creating Makefile
+/Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/ext/libyajl2
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR=" clean
+make: *** No rule to make target `clean'.  Stop.
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR=" install
+mkdir -p /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/lib
+cp libyajl.bundle /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/lib/libyajl.bundle
+mkdir -p /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/include/yajl
+cp yajl/*.h /Users/adamglancy/Documents/awspec/vendor/bundle/ruby/2.7.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/include/yajl

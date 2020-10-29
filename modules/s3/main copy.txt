@@ -1,0 +1,51 @@
+#Create IAM policy document
+data "aws_iam_policy_document" "s3_bucket_policy" {
+  statement {
+    effect    = "Allow"
+    principals {
+      identifiers = ["${local.aws_account_id}"]
+      type = "AWS"
+    }
+    actions   = ["*"]
+    resources = ["${aws_s3_bucket.test_bucket.arn}/*"]
+  }
+  statement {
+    effect    = "Deny"
+    principals {
+      identifiers = ["arn:aws:iam::939116382365:user/TEST"]
+      type = "AWS"
+    }
+    actions   = ["*"]
+    resources = ["${aws_s3_bucket.test_bucket.arn}/*"]
+    }
+  }
+
+#Create s3 bucket, with versioning enabled.
+resource "aws_s3_bucket" "test_bucket" {
+  bucket = "${local.aws_account_id}-${var.tag_bucket_name}"
+  acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+
+}
+
+#Create s3 bucket policy using IAM policy document, attach to bucket.
+resource "aws_s3_bucket_policy" "bucket_access_policy" {
+  bucket = "${aws_s3_bucket.test_bucket.id}"
+  policy = "${data.aws_iam_policy_document.s3_bucket_policy.json}"
+}
+
+//resource "aws_s3_bucket_object" "file_upload" {
+  //bucket = "${aws_s3_bucket.test_bucket.id}"
+  //key    = "test.txt"
+  //source = "test.txt"
+//}
+
+
+data "aws_caller_identity" "current" {}
+
+locals {
+  aws_account_id = "${data.aws_caller_identity.current.account_id}"
+}
