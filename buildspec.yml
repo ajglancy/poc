@@ -1,42 +1,28 @@
 version: 0.2
 
-env:
-  variables:
-    TF_VERSION: "0.10.7"
 phases:
 
   install:
     commands:
-      # install required binary
-      - "curl -s -qL -o /usr/bin/jq https://stedolan.github.io/jq/download/linux64/jq"
-      - "chmod +x /usr/bin/jq"
-      - "cd /usr/bin"
-      - "curl -s -qL -o terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
-      - "unzip -o terraform.zip"
-
-  pre_build:
-    commands:
-      # Workaround until TF supports creds via Task Roles when running on ECS or CodeBuild
-      # See: https://github.com/hashicorp/terraform/issues/8746
-      - export AWS_RAW_CRED=$(curl --silent http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI)
-      - export AWS_ACCESS_KEY_ID=$(echo $AWS_RAW_CRED | jq -r '.AccessKeyId')
-      - export AWS_SECRET_ACCESS_KEY=$(echo $AWS_RAW_CRED | jq -r '.SecretAccessKey')
-      - export AWS_SESSION_TOKEN=$(echo $AWS_RAW_CRED | jq -r '.Token')
+      - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -O terraform.zip
+      - wget https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip -O tflint.zip
+      - wget https://github.com/liamg/tfsec/releases/latest/download/tfsec-linux-amd64 -O tfsec
+      - unzip terraform.zip
+      - unzip tflint.zip
+      - chmod +x terraform tflint tfsec
+      - printf "\nbucket = \"%s\"\nkms_key_id = \"%s\"\n" "$BUCKET" "$KMS_KEY_ID" >> config/prod/backend.conf
+      - printf "acl = \"bucket-owner-full-control\"" >> config/prod/backend.conf
+      - cat config/prod/backend.conf
 
   build:
     commands:
-      - cd "$CODEBUILD_SRC_DIR"
-      - cd "environments/$TF_ENV/"
-      - echo " building $TF_ENV"
-      - terraform init -no-color
-      - terraform plan -no-color
-      - terraform apply -no-color
+      - echo "Initialising Terraform"
+      - ./terraform init -backend-config=config/prod/backend.conf
+      - echo "Linting..."
+      - ./tflint . --module
+      - echo "Checking for security flaws" 
+      - ./tfsec .
 
   post_build:
     commands:
-      - echo "terraform completed on `date`"
-
-
-artifacts:
-  files:
-    - '**/*'
+      - echo "tflint and tfsec found no errors. Terraform verification complete."
