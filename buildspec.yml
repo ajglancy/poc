@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - echo Execute install
-      - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -O terraform.zip
+      - wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_darwin_amd64.zip
       - unzip terraform.zip
       
   build:
