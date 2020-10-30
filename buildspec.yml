@@ -1,28 +1,16 @@
 version: 0.2
 
 phases:
-
   install:
     commands:
+      - echo Execute install
       - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -O terraform.zip
-      - wget https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip -O tflint.zip
-      - wget https://github.com/liamg/tfsec/releases/latest/download/tfsec-linux-amd64 -O tfsec
       - unzip terraform.zip
-      - unzip tflint.zip
-      - chmod +x terraform tflint tfsec
-      - printf "\nbucket = \"%s\"\nkms_key_id = \"%s\"\n" "$BUCKET" "$KMS_KEY_ID" >> config/prod/backend.conf
-      - printf "acl = \"bucket-owner-full-control\"" >> config/prod/backend.conf
-      - cat config/prod/backend.conf
-
+      
   build:
     commands:
-      - echo "Initialising Terraform"
-      - ./terraform init -backend-config=config/prod/backend.conf
-      - echo "Linting..."
-      - ./tflint . --module
-      - echo "Checking for security flaws" 
-      - ./tfsec .
-
-  post_build:
-    commands:
-      - echo "tflint and tfsec found no errors. Terraform verification complete."
+      - export AWS_ACCESS_KEY_ID=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.AccessKeyId'`
+      - export AWS_SECRET_ACCESS_KEY=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.SecretAccessKey'`
+      - export AWS_SESSION_TOKEN=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
+      - echo Execute Build
+      - ./terraform init
