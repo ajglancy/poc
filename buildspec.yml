@@ -6,25 +6,12 @@ env:
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 12
     commands:
-      - npm i
-      # - npm run lint
-  pre_build:
-    commands:
-      - npm i
-      - npm run test
+      - echo Execute install
+      - wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -O terraform.zip
+      - unzip terraform.zip
+      
   build:
     commands:
-      - npm run build
-
-artifacts:
-  files:
-    - "**/*"
-  name: "web-dist-${env}"
-  base-directory: build
-
-cache:
-  paths:
-    - /root/.npm/**/*
+      - echo Execute Build
+      - terraform init
