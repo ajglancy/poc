@@ -33,8 +33,8 @@ resource "aws_s3_bucket_object" "file_upload" {
   source = "test.txt"
 }
 
-data "aws_caller_identity" "current" {}
+//data "aws_caller_identity" "current" {}
 
-locals {
-  aws_account_id = "${data.aws_caller_identity.current.account_id}"
-}
+//locals {
+  //aws_account_id = "${data.aws_caller_identity.current.account_id}"
+//}
