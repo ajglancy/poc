@@ -20,5 +20,5 @@ suites:
       patterns:
       - "test/unit/vpc/vpc_test.rb"
       - "test/unit/ec2/ec2_test.rb"
-      - "test/unit/s3/s3_test.rb"
+      #- "test/unit/s3/s3_test.rb"
       - "test/unit/security_groups/sg_test.rb"
