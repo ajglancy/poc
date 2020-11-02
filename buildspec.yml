@@ -7,6 +7,8 @@ phases:
       - wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip -O terraform.zip
       - unzip terraform.zip
       - bundle install --path vendor/bundle
+      - gem install rspec
+      - gem install rspec_junit_formatter
       
   build:
     commands:
@@ -14,10 +16,17 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.SecretAccessKey'`
       - export AWS_SESSION_TOKEN=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
       - echo Execute Build
+      - rspec ./poc/test/ec2 --format RspecJunitFormatter --out ./poc/test/ec2_report
       - ./terraform init
       #- ./terraform plan
       - bundle exec kitchen converge
       - bundle exec kitchen verify
       - bundle exec kitchen destroy
-      
+  
+  reports:
+    rspec_reports:
+        files:
+            - ec2_report.xml
+        base-directory: ./poc/test
+        file-format: JUNITXML
       
