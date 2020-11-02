@@ -15,6 +15,7 @@ phases:
       - export AWS_SESSION_TOKEN=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
       - echo Execute Build
       - ./terraform init
+      - ./terraform plan
       #- bundle exec kitchen converge
       #- bundle exec kitchen verify
       #- bundle exec kitchen destroy
