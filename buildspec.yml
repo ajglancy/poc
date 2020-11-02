@@ -22,8 +22,7 @@ phases:
       - bundle exec kitchen converge
       - bundle exec kitchen verify
       - bundle exec kitchen destroy
-  
-  reports:
+reports:
     rspec_reports:
         files:
             - ec2_report.xml
