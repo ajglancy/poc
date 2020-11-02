@@ -20,3 +20,8 @@ phases:
       - bundle exec kitchen verify
       - bundle exec kitchen destroy
 
+reports:
+  CiReports:
+    files:
+      - "junit.xml"
+    discard-paths: yes
