@@ -16,7 +16,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.SecretAccessKey'`
       - export AWS_SESSION_TOKEN=`curl --silent 169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI | jq -r '.Token'`
       - echo Execute Build
-      - rspec ./poc/test/ec2 --format RspecJunitFormatter --out ./poc/test/ec2_report
+      - rspec ./poc/test/ec2 --format RspecJunitFormatter --out ./poc/test/ec2_report.xml
       - ./terraform init
       #- ./terraform plan
       - bundle exec kitchen converge
