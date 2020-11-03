@@ -10,7 +10,7 @@ ec2_name = config_main['module']['ec2']['instance_name']
 sg_id = config_main['module']['ec2']['security_group']
 
 # Load the terraform state file and convert it into a Ruby hash
-state_file = './terraform.tfstate.d/kitchen-terraform-default-aws/terraform.tfstate'
+state_file = './terraform.tfstate'
 tf_state = JSON.parse(File.open(state_file).read)
 subnet_id = tf_state['resources'][1]['instances'][0]['attributes']['subnet_id']
 vol_id = tf_state['resources'][1]['instances'][0]['attributes']['root_block_device'][0]['volume_id']
