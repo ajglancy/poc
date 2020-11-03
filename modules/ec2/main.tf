@@ -8,7 +8,7 @@ resource "aws_instance" "DevInstanceAWS" {
   vpc_security_group_ids = [aws_security_group.web_external.id]
 
   tags = {
-    Name = "DevInstanceAWS-${count.index + 1}"
+    Name = "DevInstanceAWS--${count.index + 1}"
   }
 }
 resource "aws_security_group" "web_external" {
