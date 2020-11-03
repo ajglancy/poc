@@ -1,8 +1,3 @@
-resource "aws_kms_key" "mykey" {
-  description             = "This key is used to encrypt bucket objects"
-  deletion_window_in_days = 10
-}
-
 #Create s3 bucket, with versioning enabled.
 resource "aws_s3_bucket" "test_bucket" {
   bucket = "538215634837-testbucket"
