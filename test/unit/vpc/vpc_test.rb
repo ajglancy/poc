@@ -25,3 +25,22 @@ describe vpc('dev-vpc') do
   it { should have_route_table('dev-public-rt') }
 end
 
+# Test to ensure the NAT Gateway exists
+describe nat_gateway('dev-ngw') do
+  it { should exist }
+end
+
+# Test to ensure the NAT Gateway is connected to correct VPC
+describe nat_gateway('dev-ngw') do
+  it { should belong_to_vpc('dev-vpc') }
+end
+
+# Test to ensure the IGW Gateway exists
+describe internet_gateway('dev-igw') do
+  it { should exist }
+end
+
+# Test to ensure the IGW Gateway is connected to correct VPC
+describe internet_gateway('dev-igw') do
+  it { should be_attached_to('dev-vpc') }
+end
