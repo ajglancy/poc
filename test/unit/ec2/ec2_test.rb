@@ -12,9 +12,9 @@ sg_id = config_main['module']['ec2']['security_group']
 # Load the terraform state file and convert it into a Ruby hash
 state_file = './terraform.tfstate'
 tf_state = JSON.parse(File.open(state_file).read)
-subnet_id = tf_state['resources'][1]['instances'][0]['attributes']['subnet_id']
-vol_id = tf_state['resources'][1]['instances'][0]['attributes']['root_block_device'][0]['volume_id']
-enc_id = tf_state['resources'][1]['instances'][0]['attributes']['root_block_device'][0]['encryption']
+subnet_id = tf_state['resources'][0]['instances'][0]['attributes']['subnet_id']
+vol_id = tf_state['resources'][0]['instances'][0]['attributes']['root_block_device'][0]['volume_id']
+enc_id = tf_state['resources'][0]['instances'][0]['attributes']['root_block_device'][0]['encryption']
 
 # Test to ensure the EC2 instance exists
 describe ec2(ec2_name.to_s) do
