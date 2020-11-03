@@ -22,6 +22,6 @@ module "vpc" {
     private_subnets_cidr = ["10.132.2.0/26","10.132.2.64/26"]
     azs          = ["eu-west-2a", "eu-west-2b"]
 }
-//module "s3" {
- //   source = "./modules/s3"
-//}
+module "s3" {
+    source = "./modules/s3"
+}
