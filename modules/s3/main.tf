@@ -1,6 +1,6 @@
 #Create s3 bucket, with versioning enabled.
 resource "aws_s3_bucket" "test_bucket" {
-  bucket = "538215634837testbucket"
+  bucket = "538215634837-testbucket-poc"
   acl    = "private"
   
   versioning {
