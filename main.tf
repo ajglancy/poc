@@ -3,7 +3,7 @@ module "ec2" {
   source         = "./modules/ec2"
   aws_region     = "eu-west-2"
   instance_type  = "t2.nano"
-  instance_name  = "DevInstanceAWS-1"
+  instance_name  = "DevInstanceAWS-2"
   ami_id         = "ami-09b89ad3c5769cca2"
   subnet_id      = "${element(module.vpc.public_subnets, count.index)}"
   security_group = "web_external"
