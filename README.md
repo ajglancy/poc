@@ -1,6 +1,6 @@
 # required tools
  
- * terraform
+ * terraform 13.x
  * kitchen-terraform
  * rspec
  * awsspec
