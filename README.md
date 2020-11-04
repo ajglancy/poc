@@ -24,3 +24,7 @@ then verify infrastructure components by running,
 once testing is done destroy the resources,
 
  `bundle exec kitchen destroy`
+ 
+ # troubleshooting
+ 
+ If encountering a key error upon initial converge, please run a second time as dependant infrastructue will now be in place.
