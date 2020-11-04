@@ -5,22 +5,22 @@ require 'aws-sdk'
 require 'rhcl'
 
 # Test to ensure the S3 bucket has versioning enabled 
-describe s3_bucket('538215634837testbucket') do
+describe s3_bucket('538215634837-testbucket') do
     it { should have_versioning_enabled }
   end
   
 # Test to ensure the S3 bucket has server side encryption enabled
-  describe s3_bucket('538215634837testbucket') do
+  describe s3_bucket('538215634837-testbucket') do
     it { should have_server_side_encryption(algorithm: "aws:kms") }
   end
 
 # Test to ensure the S3 bucket has the correct bucket owner 
-  describe s3_bucket('538215634837testbucket') do
+  describe s3_bucket('538215634837-testbucket') do
     its('resource.acl.owner.display_name') { should eq 'my-bucket-owner' }
   end
 
 # Test to ensure MFA delete is enabled on the bucket  
-  describe s3_bucket('538215634837testbucket') do
+  describe s3_bucket('538215634837-testbucket') do
     it { should have_mfa_delete_enabled }
   end
 
@@ -30,7 +30,7 @@ describe s3_bucket('538215634837testbucket') do
   end
 
 # Test to ensure the S3 file has been successfully uploaded and is encrypted
-  describe s3_bucket('538215634837testbucket') do
+  describe s3_bucket('538215634837-testbucket') do
     it { should have_object('/test.txt') }
     it { should have_server_side_encryption(algorithm: "aws:kms") }
   end
